@@ -2,6 +2,7 @@
 #include <chrono>
 #include <iostream>
 #include <random>
+#include <string>
 
 using std::cout;
 using std::chrono::duration;
@@ -36,15 +37,17 @@ int main(int argc, char *argv[]) {
       std::chrono::duration_cast<duration<double, std::milli>>(end - start);
   // Durations are converted to milliseconds already thanks to
   // std::chrono::duration_cast
-  cout << duration_sec.count() << "\n";
+  cout << duration_sec.count() << '\n';
 
   // (iv) Prints the first element of the output scanned array
-  cout << output[0] << "\n";
+  cout << output[0] << '\n';
 
   // (v) Prints the last element of the output scanned array
-  cout << output[n - 1] << "\n";
+  cout << output[n - 1] << '\n';
 
   // (vi) freeing memory
   delete[] arr;
   delete[] output;
+
+  return 0;
 }

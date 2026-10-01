@@ -6,8 +6,8 @@
 // output, which is an nxn grid stored in row-major order
 void convolve(const float *image, float *output, std::size_t n,
               const float *mask, std::size_t m) {
-  const int half = static_cast<int>(m / 2);
-  const int image_size = static_cast<int>(n);
+  const std::ptrdiff_t half = static_cast<std::ptrdiff_t>(m / 2);
+  const std::ptrdiff_t image_size = static_cast<std::ptrdiff_t>(n);
 
   for (std::size_t x = 0; x < n; ++x) {
     for (std::size_t y = 0; y < n; ++y) {
@@ -15,8 +15,10 @@ void convolve(const float *image, float *output, std::size_t n,
 
       for (std::size_t i = 0; i < m; ++i) {
         for (std::size_t j = 0; j < m; ++j) {
-          const int row = static_cast<int>(x) + static_cast<int>(i) - half;
-          const int column = static_cast<int>(y) + static_cast<int>(j) - half;
+          const std::ptrdiff_t row = static_cast<std::ptrdiff_t>(x) +
+                                     static_cast<std::ptrdiff_t>(i) - half;
+          const std::ptrdiff_t column = static_cast<std::ptrdiff_t>(y) +
+                                        static_cast<std::ptrdiff_t>(j) - half;
 
           const bool row_outside = row < 0 || row >= image_size;
           const bool column_outside = column < 0 || column >= image_size;

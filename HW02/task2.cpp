@@ -10,12 +10,16 @@ using std::chrono::duration;
 using std::chrono::high_resolution_clock;
 
 int main(int argc, char *argv[]) {
+  if (argc != 3) {
+    return 1;
+  }
+
   high_resolution_clock::time_point start;
   high_resolution_clock::time_point end;
-  duration<double, std::milli> duration_sec;
+  duration<double, std::milli> duration_ms;
 
-  std::size_t n = std::stoi(argv[1]);
-  std::size_t m = std::stoi(argv[2]);
+  const std::size_t n = std::stoull(argv[1]);
+  const std::size_t m = std::stoull(argv[2]);
 
   // (i) create nxn matrix
   float *image = new float[n * n];
@@ -44,11 +48,11 @@ int main(int argc, char *argv[]) {
   end = high_resolution_clock::now();
 
   // duration in milliseconds.
-  duration_sec =
+  duration_ms =
       std::chrono::duration_cast<duration<double, std::milli>>(end - start);
 
   // (iv) time taken by convolve function
-  cout << duration_sec.count() << '\n';
+  cout << duration_ms.count() << '\n';
 
   // (v) Prints the first element
   cout << output[0] << '\n';

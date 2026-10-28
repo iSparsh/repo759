@@ -19,10 +19,6 @@ num_particles=500
 end_time=100
 runs=3
 
-# Pin one thread per allocated CPU for stable timings
-export OMP_PROC_BIND=close
-export OMP_PLACES=threads
-
 echo "policy,threads,run,time_ms" > ../task4.csv
 for policy in static dynamic guided; do
   # task3.cpp uses schedule(runtime), which reads the policy from OMP_SCHEDULE

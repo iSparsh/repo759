@@ -20,9 +20,6 @@ num_threads=8
 
 # task3.cpp uses schedule(runtime), so pick the policy explicitly
 export OMP_SCHEDULE=static
-# Pin one thread per allocated CPU for stable timings
-export OMP_PROC_BIND=close
-export OMP_PLACES=threads
 
 echo "N=$num_particles tEnd=$end_time threads=$num_threads schedule=$OMP_SCHEDULE"
 ./task3 "$num_particles" "$end_time" "$num_threads"

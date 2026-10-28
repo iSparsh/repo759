@@ -1,11 +1,10 @@
+#include <algorithm>
 #include <chrono>
 #include <cmath>
-#include <cstddef>
-#include <cstdlib>
-#include <ctime>
 #include <fstream>
 #include <iostream>
 #include <random>
+#include <string>
 
 using std::chrono::duration;
 using std::chrono::high_resolution_clock;
@@ -156,29 +155,12 @@ int main(int argc, char *argv[]) {
 
     // Drift, and Ensure particles stay within bounds
     for (int i = 0; i < N; ++i) {
-      // ---- X Coordinate ----
-      pos[i][0] += vel[i][0] * dt;
-      if (pos[i][0] > board_size) {
-        pos[i][0] = board_size;
-      } else if (pos[i][0] < -board_size) {
-        pos[i][0] = -board_size;
-      }
-
-      // ---- Y Coordinate ----
-      pos[i][1] += vel[i][1] * dt;
-      if (pos[i][1] > board_size) {
-        pos[i][1] = board_size;
-      } else if (pos[i][1] < -board_size) {
-        pos[i][1] = -board_size;
-      }
-
-      // ---- Z Coordinate ----
-      pos[i][2] += vel[i][2] * dt;
-      if (pos[i][2] > board_size) {
-        pos[i][2] = board_size;
-      } else if (pos[i][2] < -board_size) {
-        pos[i][2] = -board_size;
-      }
+      pos[i][0] =
+          std::clamp(pos[i][0] + vel[i][0] * dt, -board_size, board_size);
+      pos[i][1] =
+          std::clamp(pos[i][1] + vel[i][1] * dt, -board_size, board_size);
+      pos[i][2] =
+          std::clamp(pos[i][2] + vel[i][2] * dt, -board_size, board_size);
     }
 
     // Update accelerations

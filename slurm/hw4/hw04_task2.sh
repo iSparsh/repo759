@@ -14,7 +14,7 @@ set -euo pipefail
 cd HW04
 g++ task2.cpp -Wall -O3 -std=c++17 -o task2
 
-num_particles=500
+num_particles=200
 end_time=100
 
 echo "N=$num_particles tEnd=$end_time"

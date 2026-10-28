@@ -14,9 +14,9 @@ set -euo pipefail
 cd HW04
 g++ task3.cpp -Wall -O3 -std=c++17 -o task3 -fopenmp
 
-num_particles=500
+num_particles=200
 end_time=100
-num_threads=8
+num_threads=4
 
 # task3.cpp uses schedule(runtime), so pick the policy explicitly
 export OMP_SCHEDULE=static

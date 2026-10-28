@@ -15,7 +15,7 @@ set -euo pipefail
 cd HW04
 g++ task3.cpp -Wall -O3 -std=c++17 -o task3 -fopenmp
 
-num_particles=500
+num_particles=200
 end_time=100
 runs=3
 

@@ -8,7 +8,7 @@
 
 set -euo pipefail
 
-# Submit from the repo759 directory with: sbatch slurm/hw03_task3_ts.sh
+# Submit from the repo759 directory with: sbatch slurm/hw3/hw03_task3_ts.sh
 [[ -d HW03 ]] || { echo "Submit this script from the repo759 directory." >&2; exit 1; }
 cd HW03
 g++ task3.cpp msort.cpp -Wall -O3 -std=c++17 -o task3 -fopenmp

@@ -9,7 +9,7 @@
 set -euo pipefail
 
 if [[ $# -ne 1 ]]; then
-  echo "Usage: sbatch slurm/hw03_task3_t.sh BEST_THRESHOLD" >&2
+  echo "Usage: sbatch slurm/hw3/hw03_task3_t.sh BEST_THRESHOLD" >&2
   exit 1
 fi
 
@@ -20,7 +20,7 @@ if [[ ! "$best_threshold" =~ '^[1-9][0-9]*$' ]]; then
 fi
 
 # Submit after examining task3_ts.csv, for example:
-#   sbatch slurm/hw03_task3_t.sh 128
+#   sbatch slurm/hw3/hw03_task3_t.sh 128
 [[ -d HW03 ]] || { echo "Submit this script from the repo759 directory." >&2; exit 1; }
 cd HW03
 g++ task3.cpp msort.cpp -Wall -O3 -std=c++17 -o task3 -fopenmp

@@ -19,8 +19,25 @@ const double board_size = 4.0; // Size of the board
 // Function to calculate acceleration due to gravity
 void getAcc(const double pos[][3], const double mass[], double acc[][3],
             int N) {
-
-  // TODO:
+  for (int i = 0; i < N; i++) {
+    // Reset acceleration accumulator
+    acc[i][0] = 0.0;
+    acc[i][1] = 0.0;
+    acc[i][2] = 0.0;
+    for (int j = 0; j < N; j++) {
+      if (i != j) {
+        double dx = pos[j][0] - pos[i][0];
+        double dy = pos[j][1] - pos[i][1];
+        double dz = pos[j][2] - pos[i][2];
+        // (dx^2 + dy^2 + dz^2 + softening^2)^{-1.5}
+        double r2 = dx * dx + dy * dy + dz * dz + softening * softening;
+        double inv_r3 = 1.0 / (r2 * std::sqrt(r2));
+        acc[i][0] += G * (dx * inv_r3) * mass[j];
+        acc[i][1] += G * (dy * inv_r3) * mass[j];
+        acc[i][2] += G * (dz * inv_r3) * mass[j];
+      }
+    }
+  }
 }
 
 // For debug: save positions to a CSV file
@@ -130,16 +147,49 @@ int main(int argc, char *argv[]) {
   // Main simulation loop
   for (int step = 0; step < Nt; step++) {
 
-    // TODO: (1/2) kick
+    // (1/2) kick
+    for (int i = 0; i < N; ++i) {
+      vel[i][0] = vel[i][0] + (acc[i][0] * dt / 2.0);
+      vel[i][1] = vel[i][1] + (acc[i][1] * dt / 2.0);
+      vel[i][2] = vel[i][2] + (acc[i][2] * dt / 2.0);
+    }
 
-    // TODO: Drift
+    // Drift, and Ensure particles stay within bounds
+    for (int i = 0; i < N; ++i) {
+      // ---- X Coordinate ----
+      pos[i][0] += vel[i][0] * dt;
+      if (pos[i][0] > board_size) {
+        pos[i][0] = board_size;
+      } else if (pos[i][0] < -board_size) {
+        pos[i][0] = -board_size;
+      }
 
-    // TODO: Ensure particles stay within the board limits
+      // ---- Y Coordinate ----
+      pos[i][1] += vel[i][1] * dt;
+      if (pos[i][1] > board_size) {
+        pos[i][1] = board_size;
+      } else if (pos[i][1] < -board_size) {
+        pos[i][1] = -board_size;
+      }
+
+      // ---- Z Coordinate ----
+      pos[i][2] += vel[i][2] * dt;
+      if (pos[i][2] > board_size) {
+        pos[i][2] = board_size;
+      } else if (pos[i][2] < -board_size) {
+        pos[i][2] = -board_size;
+      }
+    }
 
     // Update accelerations
     getAcc(pos, mass, acc, N);
 
-    // TODO: (1/2) kick
+    // (1/2) kick
+    for (int i = 0; i < N; ++i) {
+      vel[i][0] = vel[i][0] + (acc[i][0] * dt / 2.0);
+      vel[i][1] = vel[i][1] + (acc[i][1] * dt / 2.0);
+      vel[i][2] = vel[i][2] + (acc[i][2] * dt / 2.0);
+    }
 
     // Update time
     t += dt;

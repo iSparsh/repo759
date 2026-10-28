@@ -1,0 +1,8 @@
+I completed the assignment entirely by myself.
+I only used the help of Claude in commit ebae43c to help double check my parallel regions which were giving me trouble with compiling. The fix was moving omp_set_num_threads() to line 88 where it is now and removing #pragma omp parallel from wrapping the loop body (incorrect indentation)
+
+The second commit, fe0c966, was when Claude helped me author slurm scripts, which I double-checked before comitting.
+
+In both places, co-authorship was added to Claude because I ran git commit inside of the prompt window.
+
+Besides that, I did everything by myself, including the rest of the code and the slurm script editing.

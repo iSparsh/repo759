@@ -1,5 +1,6 @@
 #!/usr/bin/env zsh
 #SBATCH -p instruction
+#SBATCH --ntasks=1
 #SBATCH --gpus-per-task=1
 #SBATCH -c 1
 #SBATCH --mem=8G
